@@ -1,7 +1,11 @@
 from tkinter import *
+from tkinter import ttk
 import platform
+import subprocess
 import efectosVisuales
-
+import manejoMemoria
+import servicios
+import basDat
 
 ventCont1 = 0
 ventCont2 = 0
@@ -46,11 +50,13 @@ def main():
             label = Label(miFrame2)
             label.pack()
 
-            button2 = Button(miFrame2,text = "aplicar efectos", width = "20",height = "10", font = "none 10 bold", command=lambda: efectosVisuales.eleccion(menuBoton1) )
-            button2.pack(side= LEFT, padx=15, pady=20)
+            button1 = Button(miFrame2,text = "aplicar efectos", width = "20",height = "10", font = "none 10 bold",
+                                            command=lambda: efectosVisuales.eleccion(menuBoton1) )
+            button1.pack(side= LEFT, padx=15, pady=20)
 
-            button3 = Button(miFrame2,text = "reiniciar", width = "20",height = "10", font = "none 10 bold")
-            button3.pack(side= RIGHT, padx=15, pady=20)
+            button2 = Button(miFrame2,text = "reiniciar", width = "20",height = "10", font = "none 10 bold",
+                                            command=lambda: subprocess.run("shutdown -r"))
+            button2.pack(side= RIGHT, padx=15, pady=20)
 
 
 
@@ -58,6 +64,8 @@ def main():
 
 
     def memoVi():
+        global ventCont2
+        ventCont2 += 1
         miFrame3.pack()
         miFrame2.pack_forget()
         miFrame4.pack_forget()
@@ -65,13 +73,98 @@ def main():
         miFrame3.config(width = "650",height = "350")
         miFrame.destroy()
 
+        if ventCont2 == 1:
+            def sel():
+               selection = "You selected the option " + str(var.get())
+               global menuBoton2
+               menuBoton2 = var.get()
+               label.config(text = selection)
+
+
+
+            var = IntVar()
+            R4 = Radiobutton(miFrame3, text="administrado por windows", variable=var, value=1,font = "none 10 bold", command = sel)
+            R4.pack(side = TOP,padx=15, pady=30)
+
+            R5 = Radiobutton(miFrame3, text="mejor rendimiento", variable=var, value=2,font = "none 10 bold", command = sel)
+            R5.pack(side = TOP, padx=15, pady=30)
+
+            R6 = Radiobutton(miFrame3, text="sin paginación", variable=var, value=3,font = "none 10 bold", command = sel)
+            R6.pack(side = TOP, padx=15, pady=30)
+
+            label = Label(miFrame3)
+            label.pack()
+
+            button3 = Button(miFrame3,text = "aplicar memoria", width = "15",height = "1", font = "none 10 bold",
+                                            command=lambda: manejoMemoria.manMem(menuBoton2))
+            button3.pack(side= LEFT, padx=15, pady=20)
+
+            button4 = Button(miFrame3,text = "reiniciar", width = "15",height = "1", font = "none 10 bold",
+                                            command=lambda: subprocess.run("shutdown -r"))
+            button4.pack(side= RIGHT, padx=15, pady=20)
+
+
     def serv():
+        global ventCont3
+        ventCont3 += 1
         miFrame4.pack()
         miFrame2.pack_forget()
         miFrame3.pack_forget()
         miFrame4.config(bg = "black")
         miFrame4.config(width = "650",height = "350")
         miFrame.destroy()
+
+        if ventCont3 == 1:
+
+            intvar_dict = {}
+
+            checkbutton_list = []
+            seleccion_list = []
+
+            def seleccion():
+
+                for key, value in intvar_dict.items():
+                    if value.get() > 0:
+                        print('seleccionada:', key[2])
+                        seleccion_list.append(key[2])
+
+                servicios.serviciosVer(seleccion_list)
+                seleccion_list.clear()
+
+            intvar_dict.clear()
+
+
+            for cb in checkbutton_list:
+                cb.destroy()
+                checkbutton_list.clear()
+
+            for filename in basDat.fetchData():
+
+                intvar_dict[filename] = IntVar()
+
+                c = Checkbutton(miFrame4, text=filename[1], variable=intvar_dict[filename])
+                c.grid(sticky=W,row=filename[0], column=0)
+
+                checkbutton_list.append(c)
+                label = Label(miFrame4,text=filename[3])
+                label.config(height=1, width=73)
+                label.grid(sticky=W,row=filename[0], column=1)
+
+            numCol = (len(basDat.fetchData()))
+
+            label = Label(miFrame4,text="")
+            label.config(height=1, width=3)
+
+            label.grid(row=numCol+1, column=0)
+            label.grid(row=numCol+1, column=1)
+
+            button5 = Button(miFrame4,text = "aplicar memoria", width = "15",height = "1", font = "none 10 bold",
+                                            command = seleccion)
+            button5.grid(row=numCol+2, column=1 )
+
+
+
+
 
     raiz.title("PRIH "+"Sistema Operativo "+platform.system()+" "+platform.release())
     raiz.resizable(False,False)
@@ -95,8 +188,6 @@ def main():
         miFrame2 = Frame()
         miFrame3 = Frame()
         miFrame4 = Frame()
-
-
 
     else:
 
