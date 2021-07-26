@@ -1,6 +1,8 @@
 import manejoRegistros
 
 def eleccion(boton):
+
+    """creacion string registros"""
     print("entro efectos")
     print(boton)
     print(type(boton))

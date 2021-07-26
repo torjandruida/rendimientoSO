@@ -6,13 +6,14 @@ import manejoServicios
 
 
 def serviciosVer(lista):
-    print("entro servicios")
+    """creacion string servicios seleccionados y validacion"""
     lst = lista
     if not lst:
         messagebox.showerror("Error", "no ha seleccionado ningun servicio")
     else:
         servSel =""
         for serv in lst:
+
             servSel += " net Start "+serv+" &"
             try:
                 s = psutil.win_service_get(serv)
@@ -21,8 +22,7 @@ def serviciosVer(lista):
             print("estado")
             print(s.status())
         manejoServicios.manServ(servSel)
-#servSel =""
-#servSel += " net Stop "+key[2]+" &"
+
 
 
 

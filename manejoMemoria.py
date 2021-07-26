@@ -5,9 +5,9 @@ import math
 import ctypes, sys
 from tkinter import messagebox
 
+"""verificacion de la memoria libre del computador"""
 mem = virtual_memory()
 disk_usage = psutil.disk_usage("C:\\")
-
 myRoundNumber = math.ceil(mem.total/1024/1024/1024)
 ddlibre = int(math.ceil(disk_usage.free/1024/1024/1024))
 minimo = str(myRoundNumber*1024)
@@ -17,8 +17,8 @@ sizeMem = 'wmic pagefileset where name="C:\\\pagefile.sys" set InitialSize='+min
 
 
 
-
 def is_admin():
+    """validacion del tipo de usuario"""
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
 
@@ -26,11 +26,12 @@ def is_admin():
         return False
 
 def chanMem(opc):
-
+    """validacion de la opcion de memoria elegida y ejecucion"""
     print("entro")
 
 
     if opc == 1:
+        """seleccion de memoria manejada automaticamente"""
         try:
             os.system('cmd /k "wmic computersystem where name="%computername%" set AutomaticManagedPagefile=true"')
 
@@ -38,6 +39,7 @@ def chanMem(opc):
             print("no ha ejecutado el comando")
 
     elif opc ==2:
+        """validacion de espacio en disco duro y seleccion de rendimiento"""
         if ddMin < ddlibre :
             try:
                 print("entro4")
@@ -50,6 +52,7 @@ def chanMem(opc):
             messagebox.showerror("Error", "el sistema no tiene espacio suficiente")
 
     elif opc ==3:
+        """seleccion de trabajo sin memoria virtual"""
         try:
             os.system('cmd /k "wmic pagefile list /format:list & wmic computersystem where name="%computername%" set AutomaticManagedPagefile=false & wmic pagefileset where name="C:\\\pagefile.sys" delete"')
 
@@ -57,12 +60,8 @@ def chanMem(opc):
             print("no ha ejecutado el comando")
 
 def manMem(opcbtn):
-
-    if is_admin():
-        chanMem(opcbtn)
-
-    else:
-        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
+    """elevacion a usuario administrador"""
+    
 
 
 if __name__ == '__main__':

@@ -4,6 +4,7 @@ import cx_Oracle
 
 
 def getConnection():
+    """conexion con la base de datos"""
     host = "localhost"
     user = "SYSTEM"
     passw = "Orcl12345"
@@ -12,13 +13,14 @@ def getConnection():
     try:
         connection = cx_Oracle.connect(user, passw, host+"/"+tsname)
     except Exception as error:
-        print("no se pudo conectar a la nase de datos " + error)
+        print("no se pudo conectar a la base de datos " + error)
     else:
         print("conexion realizada")
 
     return connection
 
 def fetchData():
+    """cargar todos los datos base de datos"""
     connection = getConnection()
     cursor = connection.cursor()
     sql_fetch_date = "select * from servicios"
@@ -32,6 +34,7 @@ def fetchData():
     return listaTupla
 
 def insertData():
+    """insertar datos en la base de datos"""
     connection = getConnection()
     cursor = connection.cursor()
     p1 = "insert into servicios values (3,'camara','camara','fotografica')"
@@ -41,6 +44,7 @@ def insertData():
     print("servicio agregado")
 
 def updateData():
+    """actualizar datos en la base de datos"""
     connection = getConnection()
     cursor = connection.cursor()
     sql_update = "update servicios set descripcion='camara alta resolucion' where id_servicios=3"
@@ -50,6 +54,7 @@ def updateData():
     print("servicio actualizado")
 
 def deleteData():
+    """borrar datos en la base de datos"""
     connection = getConnection()
     cursor = connection.cursor()
     sql_delete = "delete from servicios where id_servicios=3"

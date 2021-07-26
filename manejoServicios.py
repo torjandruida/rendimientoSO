@@ -8,6 +8,7 @@ import ctypes, sys
 
 
 def is_admin():
+    """validacion del tipo de usuario"""
     try:
         return ctypes.windll.shell32.IsUserAnAdmin()
 
@@ -15,7 +16,7 @@ def is_admin():
         return False
 
 def chanServ(opc):
-
+    """apagado de servicios seleccionados"""
     try:
         print("entro")
         os.system('cmd /k "'+opc+' exit"')
@@ -30,7 +31,7 @@ def quit():
 
 
 def manServ(opcbtn):
-
+    """elevacion a usuario administrador"""
     if is_admin():
         chanServ(opcbtn)
 

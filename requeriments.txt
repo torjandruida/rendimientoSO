@@ -1,2 +1,0 @@
-cx-Oracle==8.2.1
-elevate==0.1.3
