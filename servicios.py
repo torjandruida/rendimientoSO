@@ -6,7 +6,7 @@ import manejoServicios
 
 
 def serviciosVer(lista):
-    """creacion string servicios seleccionados y validacion"""
+    """creacion string servicios seleccionados para su posterior tratamiento y validacion"""
     lst = lista
     if not lst:
         messagebox.showerror("Error", "no ha seleccionado ningun servicio")

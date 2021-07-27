@@ -5,7 +5,7 @@ import math
 import ctypes, sys
 from tkinter import messagebox
 
-"""verificacion de la memoria libre del computador"""
+"""verificacion de la memoria libre del disco duro"""
 mem = virtual_memory()
 disk_usage = psutil.disk_usage("C:\\")
 myRoundNumber = math.ceil(mem.total/1024/1024/1024)
@@ -26,12 +26,12 @@ def is_admin():
         return False
 
 def chanMem(opc):
-    """validacion de la opcion de memoria elegida y ejecucion"""
+    """validacion de la opcion de memoria elegida y ejecucion de acuerdo a la opcion seleccionada"""
     print("entro")
 
 
     if opc == 1:
-        """seleccion de memoria manejada automaticamente"""
+        """seleccion de memoria manejada automaticamente por el sistema operativo"""
         try:
             os.system('cmd /k "wmic computersystem where name="%computername%" set AutomaticManagedPagefile=true"')
 
@@ -61,7 +61,11 @@ def chanMem(opc):
 
 def manMem(opcbtn):
     """elevacion a usuario administrador"""
-    
+    if is_admin():
+        chanMem(opcbtn)
+
+    else:
+        ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
 
 
 if __name__ == '__main__':

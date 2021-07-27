@@ -5,7 +5,7 @@ import ctypes
 
 def set_Registro(path,nombre,valor):
 
-    """cambio de registros dword y binary"""
+    """cambio de registros dword y binary de acuerdo a los strings recibidos """
     with winreg.ConnectRegistry(None, winreg.HKEY_CURRENT_USER) as hkey:
         with winreg.OpenKey(hkey, path, 0,winreg.KEY_ALL_ACCESS) as sub_key:
             existing_path_value = winreg.EnumValue(sub_key,0)
@@ -31,8 +31,7 @@ def set_Registro(path,nombre,valor):
                 5000,
                 ctypes.byref(result))
 
-            print(f"{existing_path_value}")
-            print(type(existing_path_value))
+            
 
 
 

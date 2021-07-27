@@ -4,7 +4,7 @@ import cx_Oracle
 
 
 def getConnection():
-    """conexion con la base de datos"""
+    """conexion con la base de datos oracle"""
     host = "localhost"
     user = "SYSTEM"
     passw = "Orcl12345"

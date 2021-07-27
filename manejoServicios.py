@@ -16,7 +16,7 @@ def is_admin():
         return False
 
 def chanServ(opc):
-    """apagado de servicios seleccionados"""
+    """apagado de servicios seleccionados que vienen en el string"""
     try:
         print("entro")
         os.system('cmd /k "'+opc+' exit"')

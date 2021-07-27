@@ -20,7 +20,7 @@ def main():
     raiz = Tk()
 
     def efecVis():
-        """Frame para el manejo del Frame1 efectos visuales y ocultación del frame 2 y 3"""
+        """Frame para el manejo del Frame1 efectos visuales"""
         global ventCont1
         ventCont1 += 1
         miFrame2.pack()
@@ -41,7 +41,7 @@ def main():
                label.config(text = selection)
 
 
-            """creacion de los 3 Radiobutton del frame1"""
+            """creacion de los Radiobutton del frame1"""
             var = IntVar()
             R1 = Radiobutton(miFrame2, text="dejar que windows elija", variable=var, value=1,font = "none 10 bold", command = sel)
             R1.pack(side = TOP,padx=15, pady=30)
@@ -55,7 +55,7 @@ def main():
             label = Label(miFrame2)
             label.pack()
 
-            """creacion de los botones aplicar efectos y reiniciar frame1"""
+            """creacion de los botones frame1"""
             button1 = Button(miFrame2,text = "aplicar efectos", width = "20",height = "1", font = "none 10 bold",
                                             command=lambda: efectosVisuales.eleccion(menuBoton1) )
             button1.pack(side= LEFT, padx=15, pady=20)
@@ -70,7 +70,7 @@ def main():
 
 
     def memoVi():
-        """Frame para el manejo del Frame2 memoria virtual y ocultacion del frame 1 y 3"""
+        """Frame para el manejo del Frame2 memoria virtual"""
 
         global ventCont2
         ventCont2 += 1
@@ -90,7 +90,7 @@ def main():
                label.config(text = selection)
 
 
-            """creacion de los 3 Radiobutton del frame2"""
+            """creacion de los Radiobutton del frame2"""
             var = IntVar()
             R4 = Radiobutton(miFrame3, text="administrado por windows", variable=var, value=1,font = "none 10 bold", command = sel)
             R4.pack(side = TOP,padx=15, pady=30)
@@ -104,7 +104,7 @@ def main():
             label = Label(miFrame3)
             label.pack()
 
-            """creacion de los botones memoria y reiniciar del frame2"""
+            """creacion de los botones frame2"""
             button3 = Button(miFrame3,text = "aplicar memoria", width = "15",height = "1", font = "none 10 bold",
                                             command=lambda: manejoMemoria.manMem(menuBoton2))
             button3.pack(side= LEFT, padx=15, pady=20)
@@ -115,7 +115,7 @@ def main():
 
 
     def serv():
-        """Frame para el manejo del Frame3 servicios y ocultación del frame 1 y 2"""
+        """Frame para el manejo del Frame3 servicios"""
         global ventCont3
         ventCont3 += 1
         miFrame4.pack()
@@ -150,7 +150,7 @@ def main():
                 checkbutton_list.clear()
 
 
-            """creacion de los Chekbutton, desde informacion traida de la base de datos y labels desde informacion traida desde la base de datos del frame2"""
+            """creacion de los Chekbutton y labels del frame2"""
             for filename in basDat.fetchData():
 
                 intvar_dict[filename] = IntVar()
@@ -171,7 +171,7 @@ def main():
             label.grid(row=numCol+1, column=0)
             label.grid(row=numCol+1, column=1)
 
-            """creacion boton apagar servicios seleccionados y insercion en grid del frame3"""
+            """creacion del boton frame3"""
             button5 = Button(miFrame4,text = "apagar servicios seleccionados", width = "15",height = "1", font = "none 10 bold",
                                             command = seleccion)
             button5.grid(row=numCol+2, column=1 )
@@ -179,7 +179,7 @@ def main():
 
 
 
-    """configuracion de la ventana y redimensionamiento en verdadero horizontal y vertical"""
+    """configuracion de la ventana"""
     raiz.title("PRIH "+"Sistema Operativo "+platform.system()+" "+platform.release())
     raiz.resizable(True,True)
     raiz.geometry("1075x500")
@@ -191,7 +191,7 @@ def main():
     miFrame.config(bg = "red")
     miFrame.config(width = "1075",height = "500")
 
-    """validacion de si tiene el sistema operativo correcto, si lo tiene muestra la barra de menus"""
+    """validacion del sistema operativo"""
     if platform.system() == "Windows" and platform.release() == "10":
         barraMenu = Menu(raiz)
         barraMenu.add_command(label = "Efectos visuales", command=efecVis)
