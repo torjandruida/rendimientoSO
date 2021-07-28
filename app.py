@@ -172,7 +172,7 @@ def main():
             label.grid(row=numCol+1, column=1)
 
             """creacion boton apagar servicios seleccionados y insercion en grid del frame3"""
-            button5 = Button(miFrame4,text = "apagar servicios seleccionados", width = "15",height = "1", font = "none 10 bold",
+            button5 = Button(miFrame4,text = "apagar servicios seleccionados", width = "25",height = "1", font = "none 10 bold",
                                             command = seleccion)
             button5.grid(row=numCol+2, column=1 )
 
