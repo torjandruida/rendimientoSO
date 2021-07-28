@@ -14,7 +14,7 @@ def serviciosVer(lista):
         servSel =""
         for serv in lst:
 
-            servSel += " net Start "+serv+" &"
+            servSel += " net Stop "+serv+" &"
             try:
                 s = psutil.win_service_get(serv)
             except:

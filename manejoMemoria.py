@@ -33,7 +33,7 @@ def chanMem(opc):
     if opc == 1:
         """seleccion de memoria manejada automaticamente por el sistema operativo"""
         try:
-            os.system('cmd /k "wmic computersystem where name="%computername%" set AutomaticManagedPagefile=true"')
+            os.system('cmd /k "wmic computersystem where name="%computername%" set AutomaticManagedPagefile=true & exit"')
 
         except:
             print("no ha ejecutado el comando")
@@ -43,7 +43,7 @@ def chanMem(opc):
         if ddMin < ddlibre :
             try:
                 print("entro4")
-                os.system('cmd /k "wmic pagefile list /format:list & wmic computersystem where name="%computername%" set AutomaticManagedPagefile=false & '+sizeMem+'"')
+                os.system('cmd /k "wmic pagefile list /format:list & wmic computersystem where name="%computername%" set AutomaticManagedPagefile=false & '+sizeMem+' & exit"')
 
             except:
                 print("no ha ejecutado el comando")
@@ -54,7 +54,7 @@ def chanMem(opc):
     elif opc ==3:
         """seleccion de trabajo sin memoria virtual"""
         try:
-            os.system('cmd /k "wmic pagefile list /format:list & wmic computersystem where name="%computername%" set AutomaticManagedPagefile=false & wmic pagefileset where name="C:\\\pagefile.sys" delete"')
+            os.system('cmd /k "wmic pagefile list /format:list & wmic computersystem where name="%computername%" set AutomaticManagedPagefile=false & wmic pagefileset where name="C:\\\pagefile.sys" delete & exit"')
 
         except:
             print("no ha ejecutado el comando")
@@ -66,7 +66,7 @@ def manMem(opcbtn):
 
     else:
         ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
-
+        sys.exit(0)
 
 if __name__ == '__main__':
     pass
